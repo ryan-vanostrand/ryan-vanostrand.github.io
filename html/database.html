@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Portfolio Website</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="../css/styles.css" rel="stylesheet" />
+    </head>
+    <body>
+        <div class="d-flex" id="wrapper">
+            <!-- Sidebar-->
+            <div class="border-end bg-white" id="sidebar-Wrapper">
+                <div class="sidebar-heading border-bottom bg-light p-2" href="/"><image alt="beautiful face" src="../assets/my_pic.jpg" width='100%'></div>
+                <div class="list-group list-group-flush">
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="resume.html">General CV</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="database.html">Database for Programs</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="bugtracker.html">Bugtracker!</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="profile.html">Profile</a>
+                </div>
+            </div>
+            <!-- Page content wrapper-->
+            <div id="page-content-wrapper">
+                <!-- Top navigation-->
+                <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+                    <div class="container-fluid">
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
+                                <li class="nav-item active"><a class="nav-link" href="../index.html">Home</a></li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Socials</a>
+                                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item" href="https://www.twitch.tv/ImSorrySupport">My Twitch</a>
+                                        <a class="dropdown-item" href="https://www.instagram.com/ryan.van.ostrand">Instagram</a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+                <!-- Page content-->
+                <div class="container-fluid">
+                    <h1 class="mt-4">Coming Soon!</h1>
+                    <?php
+                    /*
+                    MSSQL PHP Example
+
+                    This script will list all the tables in the specified data source.
+                    Replace datasource_name with the name of your data source.
+                    Replace database_username and database_password
+                    with the SQL Server database username and password.
+                    */
+                    $data_source='DESKTOP-59GBJD9\SQLEXPRESS';
+                    $user='ryan.vanostrand';
+                    $password='';
+
+                    // Connect to the data source and get a handle for that connection.
+                    $conn=odbc_connect($data_source,$user,$password);
+                    if (!$conn){
+                        if (phpversion() < '4.0'){
+                        exit("Connection Failed: . $php_errormsg" );
+                        }
+                        else{
+                        exit("Connection Failed:" . odbc_errormsg() );
+                        }
+                    }
+
+                    // Retrieves table list.
+                    $result = odbc_tables($conn);
+
+                    $tables = array();
+                    while (odbc_fetch_row($result))
+                        array_push($tables, odbc_result($result, "TABLE_NAME") );
+                    // Begin table of names.
+                        echo "Table Count  Table Name\n";
+                    # Create table rows with data.
+                    foreach( $tables as $tablename ) {
+                        $tablecount = $tablecount+1;
+                        echo "$tablecount            $tablename\n";
+                    }
+
+                    // Disconnect the database from the database handle.
+                    odbc_close($conn);
+                    ?>
+                </div>
+            </div>
+        </div>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="js/scripts.js"></script>
+    </body>
+</html>
